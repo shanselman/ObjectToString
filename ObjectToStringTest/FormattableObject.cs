@@ -1,150 +1,149 @@
 ﻿using System;
 using Common;
-using MbUnit.Framework;
+using Xunit;
 
 namespace ObjectToStringTest
 {
-    [TestFixture]
 	public class MyTest
 	{
 		public MyTest(){}
 
-		[Test]
+		[Fact]
 		public void MakePersonFormattedString()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{BirthDate} My name is {FirstName} {LastName} and I'm cool.");
-			Assert.AreEqual("1/22/1974 12:00:00 AM My name is Scott Hanselman and I'm cool.", foo);
+			Assert.Equal("1/22/1974 12:00:00 AM My name is Scott Hanselman and I'm cool.", foo);
 		}
 
-		[Test]
+		[Fact]
 		public void MakePersonFormattedStringWithBadData()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{bogus} My name is {FirstName} {LastName} and I'm cool.");
-			Assert.AreEqual("{bogus} My name is Scott Hanselman and I'm cool.", foo);
+			Assert.Equal("{bogus} My name is Scott Hanselman and I'm cool.", foo);
 		}
 
 
-		[Test]
+		[Fact]
 		public void MakePersonFormattedStringWithVeryBadData()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{bogus:} My name is {FirstName} {LastName} and I'm cool.");
-			Assert.AreEqual("{bogus:} My name is Scott Hanselman and I'm cool.", foo);
+			Assert.Equal("{bogus:} My name is Scott Hanselman and I'm cool.", foo);
 		}
 
-		[Test]
+		[Fact]
 		public void MakePersonFormattedStringWithVeryBadFormattingData()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{BirthDate:poo} My name is {FirstName} {LastName} and I'm cool.");
-			Assert.AreEqual("poo My name is Scott Hanselman and I'm cool.", foo);
+			Assert.Equal("poo My name is Scott Hanselman and I'm cool.", foo);
 		}
 
 
-		[Test]
+		[Fact]
 		public void MakePersonFormattedStringWithQuestionableData()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{BirthDate:} My name is {FirstName} {LastName} and I'm cool.");
-			Assert.AreEqual("1/22/1974 12:00:00 AM My name is Scott Hanselman and I'm cool.", foo);
+			Assert.Equal("1/22/1974 12:00:00 AM My name is Scott Hanselman and I'm cool.", foo);
 		}
 
-		[Test]
+		[Fact]
 		public void MakePersonFormattedStringWithSlightlyQuestionableData()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{{}} My name is {FirstName} {LastName} and I'm cool.");
-			Assert.AreEqual("{{}} My name is Scott Hanselman and I'm cool.", foo);
+			Assert.Equal("{{}} My name is Scott Hanselman and I'm cool.", foo);
 		}
 
 
 		/// <summary>
 		/// This will likely pass only in the en-us culture
 		/// </summary>
-		[Test]
+		[Fact]
 		public void MakePersonFormattedStringWithFormat()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{BirthDate:D} My name is {FirstName} {LastName} and I'm cool.");
-			Assert.AreEqual("Tuesday, January 22, 1974 My name is Scott Hanselman and I'm cool.", foo);
+			Assert.Equal("Tuesday, January 22, 1974 My name is Scott Hanselman and I'm cool.", foo);
 		}
 
-		[Test]
+		[Fact]
 		public void MakePersonFormattedStringWithFormatAndCulture()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{BirthDate:D} My name is {FirstName} {LastName} and I'm cool.",System.Globalization.CultureInfo.InvariantCulture);
-			Assert.AreEqual("Tuesday, 22 January 1974 My name is Scott Hanselman and I'm cool.", foo);
+			Assert.Equal("Tuesday, 22 January 1974 My name is Scott Hanselman and I'm cool.", foo);
 		}
 
-		[Test]
+		[Fact]
 		public void MakePersonComplexFormattedStringWithFormatAndCulture()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{BirthDate:MM/dd/yy HH:mm:ss} My name is {FirstName} {LastName} and I'm cool.",System.Globalization.CultureInfo.InvariantCulture);
-			Assert.AreEqual("01/22/74 00:00:00 My name is Scott Hanselman and I'm cool.", foo);
+			Assert.Equal("01/22/74 00:00:00 My name is Scott Hanselman and I'm cool.", foo);
 		}
 
-		[Test]
+		[Fact]
 		public void MakePersonFormattedStringWithFormatAndChineseCulture()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{BirthDate:D} My name is {FirstName} {LastName} and I'm cool.",new System.Globalization.CultureInfo("zh-cn"));
-			Assert.AreEqual("1974年1月22日 My name is Scott Hanselman and I'm cool.", foo);
+			Assert.Equal("1974年1月22日 My name is Scott Hanselman and I'm cool.", foo);
 		}
 
-		[Test]
+		[Fact]
 		public void MakeSimplePersonFormattedString()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{LastName}, {FirstName}");
 
-			Assert.AreEqual("Hanselman, Scott", foo);
+			Assert.Equal("Hanselman, Scott", foo);
 		}
 
-		[Test]
+		[Fact]
 		public void MakeSimplePersonFormattedStringWithDate()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{LastName}, {FirstName} {BirthDate}");
-			Assert.AreEqual("Hanselman, Scott 1/22/1974 12:00:00 AM", foo);
+			Assert.Equal("Hanselman, Scott 1/22/1974 12:00:00 AM", foo);
 		}
 
-		[Test]
+		[Fact]
 		public void MakeSimplePersonFormattedStringWithDateAndOneBadPropertyName()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{LastName}, {ScottName} {BirthDate}");
-			Assert.AreEqual("Hanselman, {ScottName} 1/22/1974 12:00:00 AM", foo);
+			Assert.Equal("Hanselman, {ScottName} 1/22/1974 12:00:00 AM", foo);
 		}
 
-		[Test]
+		[Fact]
 		public void MakeSimplePersonFormattedStringWithDouble()
 		{
 			Person p = new Person();
 			string foo = p.ToString("{Money} {LastName}, {ScottName} {BirthDate}");
-			Assert.AreEqual("3.43 Hanselman, {ScottName} 1/22/1974 12:00:00 AM", foo);
+			Assert.Equal("3.43 Hanselman, {ScottName} 1/22/1974 12:00:00 AM", foo);
 		}
 
 		/// <summary>
 		/// This will likely pass only in the en-us culture
 		/// </summary>
-	[Test]
+	[Fact]
 	public void MakeSimplePersonFormattedStringWithDoubleFormatted()
 	{
 		Person p = new Person();
         string foo = p.ToString("{Money:C} {LastName}, {ScottName} {BirthDate}");
-		Assert.AreEqual("$3.43 Hanselman, {ScottName} 1/22/1974 12:00:00 AM", foo);
+		Assert.Equal("$3.43 Hanselman, {ScottName} 1/22/1974 12:00:00 AM", foo);
 	}
 
-	[Test]
+	[Fact]
 	public void MakeSimplePersonFormattedStringWithDoubleFormattedInHongKong()
 	{
 		Person p = new Person();
 		string foo = p.ToString("{Money:C} {LastName}, {ScottName} {BirthDate}",new System.Globalization.CultureInfo("zh-hk"));
-		Assert.AreEqual("HK$3.43 Hanselman, {ScottName} 1/22/1974 12:00:00 AM", foo);
+		Assert.Equal("HK$3.43 Hanselman, {ScottName} 1/22/1974 12:00:00 AM", foo);
 	}
 	}
 

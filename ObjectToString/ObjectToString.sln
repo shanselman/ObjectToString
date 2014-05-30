@@ -1,5 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectToString", "ObjectToString.csproj", "{9623F4F0-1F6C-4EFB-AF6D-8621D401F1EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectToStringTest", "..\ObjectToStringTest\ObjectToStringTest.csproj", "{DF9FFB47-919A-4BC9-808F-B12B299707CF}"
